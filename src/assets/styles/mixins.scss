@@ -1,0 +1,70 @@
+@use 'sass:math';
+@mixin flexbox(){display: flex;display:-webkit-flex;display: -moz-flex;display: -o-flex;font-size: 0;}
+@mixin objf($size){object-fit: $size;-webkit-object-fit: $size;-moz-object-fit: $size;-o-object-fit: $size;}
+@mixin objp($pos){object-position: $pos;-webkit-object-position: $pos;-moz-object-position: $pos;-o-object-position: $pos;}
+@mixin anim($name,$time,$scenariy,$howmany,$delay) {animation: $name $time $scenariy $howmany $delay;-webkit-animation: $name $time $scenariy $howmany $delay;-moz-animation: $name $time $scenariy $howmany $delay;-o-animation: $name $time $scenariy $howmany $delay}
+@mixin rotate($deg){transform: rotate($deg);-webkit-transform: rotate($deg);-moz-transform: rotate($deg);-o-transform: rotate($deg);}
+@mixin translate($degX, $degY) {transform: translate($degX, $degY);-webkit-transform: translate($degX, $degY);-moz-transform: translate($degX, $degY);-o-transform: translate($degX, $degY);}
+@mixin scale($num){transform: scale($num);-webkit-transform: scale($num);-moz-transform: scale($num);-o-transform: scale($num);}
+@mixin flexboxinline() {display: inline-flex;display:-webkit-inline-flex;display: -moz-inline-flex;display: -o-inline-flex;}
+@mixin transition($all, $time, $scenariy, $delay) {transition: $all $time $scenariy $delay;-webkit-transition: $all $time $scenariy $delay;-moz-transition: $all $time $scenariy $delay;-o-transition: $all $time $scenariy $delay;}
+@mixin box-shadow($shadow) {-webkit-box-shadow: $shadow;-moz-box-shadow: $shadow;box-shadow: $shadow;}
+@mixin border-radius($radius) {-webkit-border-radius: $radius;-moz-border-radius: $radius;border-radius: $radius;}
+@mixin grid() {display: grid; display: -ms-grid;}
+@mixin inline-grid() {display: inline-grid; display: -ms-inline-grid;}
+@mixin backdrop-filter($filter) {backdrop-filter: $filter; -webkit-backdrop-filter: $filter;}
+@mixin clip-path($shape) {clip-path: $shape; -webkit-clip-path: $shape;}
+@mixin text-overflow($value) {text-overflow: $value; -o-text-overflow: $value;}
+@mixin background-clip($value) {background-clip: $value; -webkit-background-clip: $value;}
+//----------------------------------------------------------------------------------------
+//Adaptive value function
+$maxWidth: 1920;/* --- Write correct mockup width {ALL} without PX --- */
+$maxWidthContainer: 1560;/* --- Write container width form the mockup without PX --- */
+$fz: 20; /* --- Write general font size value form the mockup without PX ---   */
+@mixin adaptive-value($property, $starSize, $minSize, $type) {
+    $addSize: $starSize - $minSize;
+    @if $type == 1 {
+        // If less than the container
+        & {
+            #{$property}: $starSize + px;
+        }
+        @media (max-width: calc($maxWidthContainer / 16) + em) {
+            & {
+                #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidthContainer - 320}));
+            }
+        }
+    } @else if $type == 2 {
+        // If bigger than the container
+        & {
+            #{$property}: $starSize + px;
+        }
+        @media (min-width: calc($maxWidthContainer / 16) + em) {
+            & {
+                #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320}));
+            }
+        }
+    } @else {
+        // Every time
+        & {
+            #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320}));
+        }
+    }
+}
+//----------------------------------------------------------------------------------------
+// TO%
+@function prc($pxOne, $pxTwo) {
+    $result: math.div($pxOne, $pxTwo) * 100%;
+    @return $result;
+}
+//REM
+@function rem($px) {
+    $result: math.div($px, $fz) + rem;
+    @return $result;
+}
+//EM
+@function em($px) {
+    $result: math.div($px, 16) + em;
+    @return $result;
+}
+//Global styles, classes for using them in module styles
+@import './global.scss';

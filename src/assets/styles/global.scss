@@ -1,0 +1,106 @@
+.img {
+	position: relative;
+	width: 50px;
+	height: 50px;
+	
+	img, svg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		max-width: 100%;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+}
+
+[class*="__container"] {
+	/*  -- CONTAINER WIDTH  -- */
+	max-width: rem(1560);
+	margin: 0 auto;
+	@include adaptive-value(padding-right, 40, 20, 1);
+	@include adaptive-value(padding-left, 40, 20, 1);
+}
+
+body {
+	background-color: #F6F6F6;
+	
+	&._lock {
+		overflow: hidden;
+	}
+}
+
+.wrapper {
+	min-height: 100%;
+	overflow: hidden;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+main {
+	flex: 1 1 auto;
+}
+
+.subtitle {
+	@include adaptive-value(font-size, 48, 24, 1);
+	font-weight: 500;
+	background: -webkit-linear-gradient(360deg, rgba(17, 17, 17, 1) 0%, rgba(177, 177, 177, 1) 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	@include adaptive-value(margin-bottom, 20, 10, 1);
+	
+	@media (max-width: em(1220)) {
+		font-size: rem(38);
+	}
+	
+	@media (max-width: em(1065)) {
+		font-size: rem(32);
+	}
+	
+	@media (max-width: em(930)) {
+		font-size: rem(26);
+	}
+	
+	@media (max-width: em(800)) {
+		font-size: rem(24);
+	}
+}
+
+.button {
+	@include adaptive-value(font-size, 20, 16, 1);
+	font-weight: 700;
+	padding: rem(10) rem(40);
+	background-color: #30AB4C;
+	display: inline-block;
+	
+	@media (max-width: em(768)) {
+		padding: rem(10) rem(35);
+	}
+	
+}
+
+.underline {
+	position: relative;
+	
+	&:after {
+		content: '';
+		position: absolute;
+		bottom: rem(-20);
+		left: 50%;
+		@include translate(-50%, 0);
+		@include adaptive-value(width, 126, 76, 1);
+		height: rem(1);
+		background-color: #111111;
+		@media (max-width: em(560)) {
+			bottom: rem(-15);
+		}
+	}
+	
+}
+
+// ------ Variables ------
+
+$futura-pt: "FuturaPt", sans-serif;
+$futura-pt-book: "FuturaPtBook", sans-serif;
+
